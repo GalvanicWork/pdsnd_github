@@ -17,7 +17,7 @@ def get_filters():
     """
     print('Hello! Let\'s explore some US bikeshare data!')
 
-    # TO DO: get user input for city (chicago, new york city, washington). 
+    # TO DO: get user input for city (chicago, new york city, washington).
     while True:
         city = input(
                      "Please input one of the following: Chicago, New York City, or Washington: "
@@ -42,7 +42,7 @@ def get_filters():
         day = input(
                     "Please input a day of the week from Monday to Sunday or 'all': "
                     ).lower()
-        if day not in ('monday', 'tuesday', 'wednesday', 'thursday', 'friday', 
+        if day not in ('monday', 'tuesday', 'wednesday', 'thursday', 'friday',
                        'saturday', 'sunday', 'all'):
             print('That is not an option, please try again.')
         else:
@@ -65,13 +65,13 @@ def load_data(city, month, day):
     Returns:
         df - Pandas DataFrame containing city data filtered by month and day
     """
- 
+
     df                = pd.read_csv(CITY_DATA[city])
     df['Start Time']  = pd.to_datetime(df['Start Time'])
     df['End Time']    = pd.to_datetime(df['End Time'])
     df['month']       = df['Start Time'].dt.month
     df['day_of_week'] = df['Start Time'].dt.weekday_name
-    
+
     if month  != 'all':
         months = ['january', 'february', 'march', 'april', 'may', 'june']
         month  = months.index(month) + 1
@@ -79,7 +79,7 @@ def load_data(city, month, day):
 
     if day != 'all':
         df  = df[df['day_of_week'] == day.title()]
-   
+
     return df, city, month, day
 
 
@@ -87,7 +87,7 @@ def time_stats(df, city, month, day):
     """
     Displays statistics on the most frequent times of travel within filtered data.
     Adds column (int) 'hour' as the hour in military time from 'Start Time'
-    
+
     Args:
         (dataframe) df - Pandas DataFrame containing city data filtered by month and day
         (str) city - name of the city to analyze
@@ -100,7 +100,7 @@ def time_stats(df, city, month, day):
 
     # TO DO: display the most common month and change display from (int) to (str)
     popular_month = df['month'].mode()[0]
-    
+
     if popular_month   == 1:
         popular_month  = 'January'
     elif popular_month == 2:
@@ -120,7 +120,7 @@ def time_stats(df, city, month, day):
     # TO DO: display the most common start hour in military time
     df['hour']   = df['Start Time'].dt.hour
     popular_hour = df['hour'].mode()[0]
-    
+
     #Reformat 'popular_hour' from military time to standard time
     if popular_hour   <= 11:
         popular_hour  =  str(popular_hour)         + ' AM'
@@ -133,16 +133,16 @@ def time_stats(df, city, month, day):
 
     #Print most popular month if user selected 'all'
     if month   == 'all' and day == 'all':
-        print(f'The most popular month to travel is {popular_month}.') 
+        print(f'The most popular month to travel is {popular_month}.')
     elif month == 'all' and day != 'all':
-        print(f'The most popular month to travel on a {day.title()} is {popular_month}.') 
-    
+        print(f'The most popular month to travel on a {day.title()} is {popular_month}.')
+
     #Print most popular day if user selected 'all'
     if month   == 'all' and day == 'all':
-        print(f'The most popular day of the week to travel is {popular_day_of_week}.') 
+        print(f'The most popular day of the week to travel is {popular_day_of_week}.')
     elif month != 'all' and day == 'all':
         print(f'The most popular day of the week to travel in {popular_month} is {popular_day_of_week}.')
-    
+
     #Print most popular hour, phrasing based on month and/or day == 'all' or != 'all'
     if month   == 'all' and day == 'all':
         print(f'The most popular hour to travel is {popular_hour}.')
@@ -153,7 +153,7 @@ def time_stats(df, city, month, day):
     elif month != 'all' and day != 'all':
         print(f'The most popular hour to travel in {popular_month} on a {day.title()} is {popular_hour}.')
 
-    print("\nThis took %s seconds." % (time.time() - start_time))
+    print(f'\nThis took {time.time() - start_time}s seconds.')
     print('-'*40)
 
 
@@ -164,7 +164,7 @@ def station_stats(df):
 
     print('\nCalculating The Most Popular Stations and Trip...\n')
     start_time = time.time()
-    
+
     # TO DO: display most commonly used start station
     popular_start_station = df['Start Station'].mode()[0]
 
@@ -178,8 +178,8 @@ def station_stats(df):
     print(f'The most popular starting station is: {popular_start_station}')
     print(f'The most popular ending station is:   {popular_end_station}')
     print(f'The most popular trip is:             {popular_trip_stations}')
-    
-    print("\nThis took %s seconds." % (time.time() - start_time))
+
+    print(f'\nThis took {time.time() - start_time}s seconds.')
     print('-'*40)
 
 
@@ -192,14 +192,14 @@ def trip_duration_stats(df):
     # TO DO: display total travel time - 'End Time' and 'Start Time' must be dtype: datetime
     travel_time = df['End Time'] - df['Start Time']
     print(f'Total travel time was:   {travel_time.sum()}')
-    
+
     # TO DO: display mean travel time
     print(f'Average travel time was: {travel_time.mean()}')
 
-    print("\nThis took %s seconds." % (time.time() - start_time))
+    print(f'\nThis took {time.time() - start_time}s seconds.')
     print('-'*40)
 
-    
+
 def user_stats(df):
     """Displays statistics on bikeshare users."""
 
@@ -218,10 +218,10 @@ def user_stats(df):
         print('\nBy Gender:')
         print(df['Gender'].value_counts())
     except KeyError:
-        print('Gender data is not available.')                  
+        print('Gender data is not available.')
 
     # TO DO: Display earliest, most recent, and most common year of birth
-    try:    
+    try:
         print('\nBy Birth year:')
         print(f"The earliest user birth year was:    {int(df['Birth Year'].min())}")
         print(f"The most recent user birth year was: {int(df['Birth Year'].max())}")
@@ -242,10 +242,10 @@ def raw_data(df):
     Args:
         (str) five_rows - "yes" or "no" if user wants to display 5 rows of data
     """
-   
+
     #Set DataFrame row index to 0
     row_i = 0
-    
+
     #Loop resets index to filtered data and prints the df rows by index advancing by 5 on each 'yes' loop
     #Loop breaks if user inputs 'no'
     while True:
@@ -257,11 +257,11 @@ def raw_data(df):
             row_i += 5
             continue
         else:
-            break 
+            break
 
     print('-'*40)
-    
-    
+
+
 def main():
     while True:
         city, month, day = get_filters()
@@ -269,7 +269,7 @@ def main():
 
         df, city, month, day = load_data(city, month, day)
         time_stats(df, city, month, day)
-        
+
         station_stats(df)
         trip_duration_stats(df)
         user_stats(df)
