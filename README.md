@@ -14,7 +14,7 @@ washington.csv
 new_york_city.csv
 
 ### Credits
-Udacity
+https://classroom.udacity.com/nanodegrees/nd104-ent
 https://pandas.pydata.org/
 https://www.python.org/dev/peps/pep-0008/
 https://docs.python.org/3/library/index.html
