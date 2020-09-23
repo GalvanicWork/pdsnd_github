@@ -221,7 +221,7 @@ def user_stats(df):
     except KeyError:
         print('Birth year data is not available.')
 
-    print("\nThis took %s seconds." % (time.time() - start_time))
+    print(f'\nThis took {time.time() - start_time}s seconds.')
     print('-'*40)
 
 
