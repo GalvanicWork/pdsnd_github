@@ -99,20 +99,12 @@ def time_stats(df, city, month, day):
     start_time = time.time()
 
     # TO DO: display the most common month and change display from (int) to (str)
-    popular_month = df['month'].mode()[0]
+    popular_month_int = df['month'].mode()[0]
 
-    if popular_month   == 1:
-        popular_month  = 'January'
-    elif popular_month == 2:
-        popular_month  = 'February'
-    elif popular_month == 3:
-        popular_month  = 'March'
-    elif popular_month == 4:
-        popular_month  = 'April'
-    elif popular_month == 5:
-        popular_month  = 'May'
-    else:
-        popular_month  = 'June'
+    months        = pd.Series(data=['January', 'February', 'March', 'April', 'May', 'June'],
+                       index=[1, 2, 3, 4, 5, 6])
+
+    popular_month = months[popular_month_int]
 
     # TO DO: display the most common day of week
     popular_day_of_week = df['day_of_week'].mode()[0]
@@ -153,7 +145,7 @@ def time_stats(df, city, month, day):
     elif month != 'all' and day != 'all':
         print(f'The most popular hour to travel in {popular_month} on a {day.title()} is {popular_hour}.')
 
-    print("\nThis took %s seconds." % (time.time() - start_time))
+    print(f'\nThis took {time.time() - start_time}s seconds.')
     print('-'*40)
 
 
@@ -179,7 +171,7 @@ def station_stats(df):
     print(f'The most popular ending station is:   {popular_end_station}')
     print(f'The most popular trip is:             {popular_trip_stations}')
 
-    print("\nThis took %s seconds." % (time.time() - start_time))
+    print(f'\nThis took {time.time() - start_time}s seconds.')
     print('-'*40)
 
 
@@ -196,7 +188,7 @@ def trip_duration_stats(df):
     # TO DO: display mean travel time
     print(f'Average travel time was: {travel_time.mean()}')
 
-    print("\nThis took %s seconds." % (time.time() - start_time))
+    print(f'\nThis took {time.time() - start_time}s seconds.')
     print('-'*40)
 
 
@@ -229,7 +221,7 @@ def user_stats(df):
     except KeyError:
         print('Birth year data is not available.')
 
-    print("\nThis took %s seconds." % (time.time() - start_time))
+    print(f'\nThis took {time.time() - start_time}s seconds.')
     print('-'*40)
 
 
